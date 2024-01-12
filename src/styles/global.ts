@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     -webkit-font-smoothing: antialiased;
-    background-color: ${(props) => props.theme.colors['yellow-light']}; 
+    background-color: ${(props) => props.theme.colors.white}; 
     font-family: ${(props) => props.theme.fonts.roboto};
     
   }
