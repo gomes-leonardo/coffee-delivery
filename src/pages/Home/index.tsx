@@ -1,6 +1,14 @@
-import { Benefits, HomeContainer, RoundedIcon, Title } from './styles'
+import {
+  Benefits,
+  CoffeeContainer,
+  HomeContainer,
+  RoundedIcon,
+  Title,
+} from './styles'
 import HomeImage from '../../assets/Imagem.png'
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
+import coffeeData from '../../data/coffeeData'
+import CoffeeCard from '../../components/CoffeeCard'
 const Home = () => {
   return (
     <div>
@@ -45,7 +53,7 @@ const Home = () => {
               {' '}
               <Package size={24} weight="fill" color="white" />
             </RoundedIcon>
-            <Benefits>Compra simples e segura</Benefits>
+            <Benefits>Embalagem mantém o café intacto</Benefits>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <RoundedIcon statuscolor="purple-normal">
@@ -56,6 +64,14 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Title style={{ fontSize: '30px', marginTop: '3rem' }}>
+        Nossos cafés
+      </Title>
+      <CoffeeContainer>
+        {coffeeData.map((coffee) => (
+          <CoffeeCard key={coffee.id} coffee={coffee} />
+        ))}
+      </CoffeeContainer>
     </div>
   )
 }

@@ -8,12 +8,28 @@ export const HomeContainer = styled.div`
 
   p {
     font-family: 'Roboto', sans-serif;
-    width: 70%;
 
     font-weight: 400;
     font-size: 20px;
     line-height: 130%;
     margin-top: 1rem;
+    text-align: start;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 4.5rem;
+  }
+
+  p {
+    font-size: 16px;
+    width: 80%;
+  }
+
+  img {
+    width: 80%;
+    margin-bottom: 2.5rem;
   }
 `
 
@@ -22,7 +38,13 @@ export const Title = styled.h1`
   font-weight: 800;
   line-height: 62.4px;
   font-size: 48px;
-  width: 80%;
+
+  @media screen and (max-width: 768px) {
+    font-size: 32px;
+    line-height: 30.4px;
+    text-align: center;
+    width: 100%;
+  }
 `
 
 const STATUS_COLORS = {
@@ -58,4 +80,20 @@ export const RoundedIcon = styled.div<StatusProps>`
 export const Benefits = styled.p`
   font-size: 14px;
   color: ${(props) => props.theme.colors['base-text']};
+`
+
+export const CoffeeContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: start;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+    margin-top: 3rem;
+    gap: 3rem;
+  }
 `
