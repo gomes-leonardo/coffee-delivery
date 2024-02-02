@@ -30,6 +30,7 @@ const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
 
   const { removeFromCart, setValue, decrementItem, selectedCoffees } = useCart()
   const [itemCount, setItemCount] = useState(0)
+
   const handleCount = () => {
     setItemCount(itemCount + 1)
     selectedCoffees.push(coffee)

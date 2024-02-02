@@ -1,8 +1,10 @@
 import {
   CardInfo,
+  Hero,
   MainContainer,
   OrderInformation,
   RoundedIcon,
+  SubTitle,
   Title,
 } from './styles'
 import ilustration from '../../assets/Illustration.png'
@@ -13,14 +15,8 @@ const Success = () => {
   return (
     <MainContainer>
       <Title>Uhu! Pedido confirmado</Title>
-      <p>Agora é so aguardar que logo o café chegará até você</p>
-      <div
-        style={{
-          display: 'flex',
-          gap: '5.5rem',
-          alignItems: 'center',
-        }}
-      >
+      <SubTitle>Agora é so aguardar que logo o café chegará até você</SubTitle>
+      <Hero>
         <OrderInformation>
           <CardInfo>
             <RoundedIcon statuscolor="purple-normal">
@@ -60,7 +56,7 @@ const Success = () => {
         <div>
           <img src={ilustration} alt="Ilustração" />
         </div>
-      </div>
+      </Hero>
     </MainContainer>
   )
 }

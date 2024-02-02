@@ -5,6 +5,21 @@ export const Title = styled.h1`
   color: ${(props) => props.theme.colors['yellow-dark']};
   font-size: 1.5rem;
   margin-top: 3.5rem;
+  width: 85%;
+  margin: auto;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+`
+export const SubTitle = styled.p`
+  width: 85%;
+  margin: auto;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 1rem;
+  }
 `
 
 export const OrderInformation = styled.div`
@@ -12,11 +27,18 @@ export const OrderInformation = styled.div`
   border-radius: 6px 36px 6px 36px;
   position: relative;
   background: ${(props) => props.theme.colors['base-card']};
-  min-width: 32rem;
+  width: 32rem;
+  justify-content: center;
 
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: 1.5rem;
+    margin: auto;
+  }
 
   &::before {
     content: '';
@@ -70,4 +92,22 @@ export const RoundedIcon = styled.div<StatusProps>`
   height: 2rem;
 `
 
-export const MainContainer = styled.div``
+export const MainContainer = styled.div`
+  img {
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+  }
+`
+
+export const Hero = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 5.5rem;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+`
