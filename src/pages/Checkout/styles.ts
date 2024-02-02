@@ -200,19 +200,25 @@ export const InputRadio = styled.div`
 `
 export const CoffeeContainer = styled.div`
   margin-top: 0.9rem;
-  width: 500px;
-  height: 591;
+  margin-top: 0.9rem;
+
   background-color: ${(props) => props.theme.colors['base-card']};
   padding: 2.5rem;
-  border-radius: 38px 0 38px 0;
+  border-radius: 6px 38px 6px 38px;
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 0.5rem;
+  gap: 1.5rem;
 
   :focus {
     outline: 0;
     box-shadow: 0 0 0 2px ${(props) => props.theme.colors['purple-normal']};
+  }
+
+  h3 {
+    color: ${(props) => props.theme.colors['base-subtitle']};
+    font-size: 16px;
+    font-weight: normal;
   }
 
   @media screen and (max-width: 768px) {
@@ -235,10 +241,75 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 2rem;
+  padding-top: 10px;
+  max-height: 450px;
 
   @media screen and (max-width: 768px) {
     padding: 1.5rem;
     margin: auto;
     flex-direction: column;
+    max-height: 1000px;
+  }
+`
+
+export const CoffeeListContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2.5rem;
+  width: 100%;
+  padding: 1.5rem;
+
+  h3 {
+    color: ${(props) => props.theme.colors['base-subtitle']};
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  p {
+    color: ${(props) => props.theme.colors['base-text']};
+    font-size: 18px;
+    font-weight: bold;
+  }
+`
+
+export const Divider = styled.div`
+  width: 85%;
+  border-bottom: 1px solid ${(props) => props.theme.colors['base-button']};
+  display: flex;
+
+  margin: 1.5rem auto;
+`
+
+export const TotalContainer = styled.div`
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  h3 {
+    color: ${(props) => props.theme.colors['base-text']};
+    font-size: 19px;
+  }
+
+  button {
+    padding: 15px;
+    margin-top: 1rem;
+    background-color: ${(props) => props.theme.colors['yellow-normal']};
+    border: 0;
+    border-radius: 6px;
+    color: ${(props) => props.theme.colors.white};
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
   }
 `

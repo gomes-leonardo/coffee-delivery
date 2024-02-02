@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const CardContainer = styled.div`
   background-color: ${(props) => props.theme.colors['base-card']};
   padding: 1rem;
-  border-radius: 38px 0 38px 0px;
+  border-radius: 6px 38px 6px 38px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,13 +67,7 @@ export const Price = styled.p`
     margin-top: 2%;
   }
 `
-export const Counter = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  background-color: ${(props) => props.theme.colors['base-button']};
-  padding: 0.5rem;
-  border-radius: 8px;
-`
+
 export const CoffeeType = styled.div`
   background-color: ${(props) => props.theme.colors['yellow-light']};
   padding: 0.5rem;

@@ -4,13 +4,13 @@ import {
   BorderCart,
   CardContainer,
   CoffeeType,
-  Counter,
   Description,
   Price,
   PriceContainer,
   Title,
 } from './styles'
-import { ShoppingCart, Plus, Minus } from 'phosphor-react'
+import { ShoppingCart } from 'phosphor-react'
+import Counter from '../Counter'
 
 export interface Coffee {
   id: number
@@ -28,13 +28,7 @@ export interface CoffeeCardProps {
 const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
   const uppercasedTypes = coffee.type.map((type) => type.toUpperCase())
 
-  const {
-    addToCart,
-    removeFromCart,
-    incrementItem,
-    decrementItem,
-    selectedCoffees,
-  } = useCart()
+  const { removeFromCart, setValue, decrementItem, selectedCoffees } = useCart()
   const [itemCount, setItemCount] = useState(0)
   const handleCount = () => {
     setItemCount(itemCount + 1)
@@ -49,8 +43,7 @@ const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
 
   const handleAddToCart = () => {
     if (itemCount > 0) {
-      addToCart(coffee)
-      incrementItem()
+      setValue()
     }
   }
 
@@ -70,16 +63,11 @@ const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
           <p>R$</p>
           {coffee.price.toFixed(2)}
         </Price>
-        <Counter>
-          <Minus
-            onClick={handleDecrement}
-            color="purple"
-            weight="fill"
-            cursor={'pointer'}
-          />
-          <span style={{ fontWeight: '600' }}>{itemCount}</span>
-          <Plus onClick={handleCount} color="purple" cursor={'pointer'} />
-        </Counter>
+        <Counter
+          onIncrement={handleCount}
+          onDecrement={handleDecrement}
+          count={itemCount}
+        />
         <BorderCart>
           <ShoppingCart
             onClick={handleAddToCart}

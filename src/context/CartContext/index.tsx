@@ -8,6 +8,8 @@ interface CartContextType {
   selectedCoffees: Coffee[]
   addToCart: (coffee: Coffee) => void
   removeFromCart: (coffee: Coffee) => void
+  removeAllCoffees: (coffee: Coffee) => void
+  setValue: () => void
 }
 
 const CartContext = createContext<CartContextType>({
@@ -17,6 +19,8 @@ const CartContext = createContext<CartContextType>({
   selectedCoffees: [],
   addToCart: () => {},
   removeFromCart: () => {},
+  setValue: () => {},
+  removeAllCoffees: () => {},
 })
 
 export const useCart = () => useContext(CartContext)
@@ -37,13 +41,26 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
-  const addToCart = () => {
+  const addToCart = (coffee: Coffee) => {
+    setSelectedCoffees([...selectedCoffees, coffee])
+  }
+
+  const setValue = () => {
     setSelectedCoffees([...selectedCoffees])
   }
 
   const removeFromCart = (coffee: Coffee) => {
-    const updatedCoffees = selectedCoffees.filter((c) => c.id !== coffee.id)
-    setSelectedCoffees(updatedCoffees)
+    const index = selectedCoffees.findIndex((c) => c.id === coffee.id)
+    if (index !== -1) {
+      const updatedCoffees = [...selectedCoffees]
+      updatedCoffees.splice(index, 1)
+      setSelectedCoffees(updatedCoffees)
+    }
+  }
+
+  const removeAllCoffees = (coffee: Coffee) => {
+    const updateCoffees = selectedCoffees.filter((c) => c.id !== coffee.id)
+    setSelectedCoffees(updateCoffees)
   }
 
   return (
@@ -54,7 +71,9 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         decrementItem,
         addToCart,
         removeFromCart,
+        setValue,
         selectedCoffees,
+        removeAllCoffees,
       }}
     >
       {children}

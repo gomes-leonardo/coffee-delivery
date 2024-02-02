@@ -5,11 +5,14 @@ import {
   CreditCard,
   CurrencyDollar,
   WarningCircle,
+  ShoppingCart,
 } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import {
   CoffeeContainer,
+  CoffeeListContainer,
   Container,
+  Divider,
   InputButtonContainer,
   InputContainer,
   InputRadio,
@@ -17,12 +20,17 @@ import {
   StyledForm,
   Title,
   TitleSection,
+  TotalContainer,
 } from './styles'
+
+import { useNavigate } from 'react-router-dom'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useCart } from '../../context/CartContext'
+import Counter from '../../components/Counter'
 import { Coffee } from '../../components/CoffeeCard'
+import { useFormContext } from '../../context/FormContext'
 
 export enum PaymentMethod {
   CREDIT_CARD = 'Cartão de Crédito',
@@ -40,14 +48,11 @@ export interface FormData {
   paymentMethod: PaymentMethod
 }
 
-export interface CoffeeCardProps {
-  coffee: Coffee
-}
+const Checkout = () => {
+  const { selectedCoffees, addToCart, removeFromCart, removeAllCoffees } =
+    useCart()
 
-const Checkout = ({ coffee }: CoffeeCardProps) => {
-  const { selectedCoffees } = useCart()
-
-  console.log(selectedCoffees)
+  const { setFormData } = useFormContext()
 
   const schema = z.object({
     cep: z
@@ -97,8 +102,11 @@ const Checkout = ({ coffee }: CoffeeCardProps) => {
     resolver: zodResolver(schema),
   })
 
+  const navigate = useNavigate()
+
   const handleFormSubmit = (data: FormData) => {
-    console.log(data)
+    setFormData(data)
+    navigate('/success')
   }
 
   const hasError = () => {
@@ -106,6 +114,29 @@ const Checkout = ({ coffee }: CoffeeCardProps) => {
       ? 'flex'
       : 'grid'
   }
+
+  const handleIncrement = (coffee: Coffee) => {
+    addToCart(coffee)
+  }
+
+  const handleDecrement = (coffee: Coffee) => {
+    removeFromCart(coffee)
+  }
+
+  const handleRemoveAll = (coffee: Coffee) => {
+    removeAllCoffees(coffee)
+  }
+
+  const delivery = 3.5
+  const deliveryFormatted = `R$ ${delivery.toFixed(2)}`
+
+  const itemsPrice = selectedCoffees.reduce((all, curr) => {
+    return all + curr.price
+  }, 0)
+  const itemsPriceFormatted = `R$ ${itemsPrice.toFixed(2)}`
+
+  const total = delivery + itemsPrice
+  const totalFormatted = `R$ ${total.toFixed(2)}`
 
   return (
     <div>
@@ -231,17 +262,105 @@ const Checkout = ({ coffee }: CoffeeCardProps) => {
           <div>
             <Title>Cafés selecionados</Title>
             <CoffeeContainer>
-              {' '}
-              <ul>
-                {selectedCoffees.map((coffee, index) => (
-                  <li key={index}>
-                    <h3>{coffee.title}</h3>
-                    <img src={coffee.image} alt="" />
-                    <p>{coffee.description}</p>
-                    <p>Preço: R$ {coffee.price.toFixed(2)}</p>
-                  </li>
-                ))}
-              </ul>
+              {selectedCoffees.length === 0 ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '1rem',
+                    padding: '10px',
+                  }}
+                >
+                  <h3>Adicione nossos produtos no carrinho</h3>
+                  <ShoppingCart size={154} color="#D7D5D5" />
+                </div>
+              ) : (
+                <div>
+                  {selectedCoffees
+                    .filter(
+                      (coffee, index, array) =>
+                        array.findIndex((item) => item.id === coffee.id) ===
+                        index,
+                    )
+                    .map((coffee, index) => {
+                      const occurrences = selectedCoffees.filter(
+                        (item) => item.id === coffee.id,
+                      ).length
+
+                      return (
+                        <div key={index}>
+                          <CoffeeListContainer>
+                            <img
+                              width={70}
+                              src={coffee.image}
+                              alt="Coffee Illustrator"
+                            />
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'start',
+                                gap: '0.5rem',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  flexDirection: 'row',
+                                  gap: '6.5rem',
+                                  alignItems: 'center',
+                                }}
+                              >
+                                <h3>{coffee.title}</h3>
+                                <p>
+                                  R$ {(occurrences * coffee.price).toFixed(2)}
+                                </p>
+                              </div>
+
+                              <Counter
+                                count={
+                                  selectedCoffees.filter(
+                                    (c) => c.id === coffee.id,
+                                  ).length
+                                }
+                                onDecrement={() => handleDecrement(coffee)}
+                                onIncrement={() => handleIncrement(coffee)}
+                                showRemoveButton={true}
+                                onRemoveAllCoffees={() =>
+                                  handleRemoveAll(coffee)
+                                }
+                              />
+                            </div>
+                          </CoffeeListContainer>
+                          <Divider />
+                        </div>
+                      )
+                    })}
+                </div>
+              )}
+              {selectedCoffees.length > 0 && (
+                <TotalContainer>
+                  <div>
+                    <h3>Total de itens</h3>
+                    <h3>{itemsPriceFormatted}</h3>
+                  </div>
+                  <div>
+                    <h3>Entrega</h3>
+                    <h3>{deliveryFormatted}</h3>
+                  </div>
+                  <div>
+                    <h3 style={{ fontWeight: 'bold', fontSize: '22px' }}>
+                      Total
+                    </h3>
+                    <h3 style={{ fontWeight: 'bold', fontSize: '22px' }}>
+                      {totalFormatted}
+                    </h3>
+                  </div>
+                  <button type="submit">Confirmar Pedido</button>
+                </TotalContainer>
+              )}
             </CoffeeContainer>
           </div>
         </MainContainer>
@@ -317,7 +436,6 @@ const Checkout = ({ coffee }: CoffeeCardProps) => {
               </div>
             </p>
           )}
-          <button type="submit">Enviar</button>
         </Container>
       </StyledForm>
     </div>
