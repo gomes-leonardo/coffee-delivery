@@ -9,6 +9,7 @@ import HomeImage from '../../assets/Imagem.png'
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 import coffeeData from '../../data/coffeeData'
 import CoffeeCard from '../../components/CoffeeCard'
+
 const Home = () => {
   return (
     <div>

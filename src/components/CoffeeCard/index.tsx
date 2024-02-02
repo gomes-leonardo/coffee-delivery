@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { useCart } from '../../context/CartContext'
 import {
   BorderCart,
   CardContainer,
@@ -11,7 +12,7 @@ import {
 } from './styles'
 import { ShoppingCart, Plus, Minus } from 'phosphor-react'
 
-interface Coffee {
+export interface Coffee {
   id: number
   image: string
   type: string[]
@@ -20,22 +21,39 @@ interface Coffee {
   description: string
 }
 
-interface CoffeeCardProps {
+export interface CoffeeCardProps {
   coffee: Coffee
 }
 
 const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
   const uppercasedTypes = coffee.type.map((type) => type.toUpperCase())
 
-  const [count, setCount] = useState(0)
-
+  const {
+    addToCart,
+    removeFromCart,
+    incrementItem,
+    decrementItem,
+    selectedCoffees,
+  } = useCart()
+  const [itemCount, setItemCount] = useState(0)
   const handleCount = () => {
-    setCount(count + 1)
+    setItemCount(itemCount + 1)
+    selectedCoffees.push(coffee)
   }
+
   const handleDecrement = () => {
-    if (count === 0) return
-    setCount(count - 1)
+    removeFromCart(coffee)
+    decrementItem()
+    if (itemCount > 0) setItemCount(itemCount - 1)
   }
+
+  const handleAddToCart = () => {
+    if (itemCount > 0) {
+      addToCart(coffee)
+      incrementItem()
+    }
+  }
+
   return (
     <CardContainer>
       <img src={coffee.image} alt={coffee.title} />
@@ -54,16 +72,21 @@ const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
         </Price>
         <Counter>
           <Minus
+            onClick={handleDecrement}
             color="purple"
             weight="fill"
             cursor={'pointer'}
-            onClick={handleDecrement}
           />
-          <span style={{ fontWeight: '600' }}>{count}</span>
-          <Plus color="purple" cursor={'pointer'} onClick={handleCount} />
+          <span style={{ fontWeight: '600' }}>{itemCount}</span>
+          <Plus onClick={handleCount} color="purple" cursor={'pointer'} />
         </Counter>
         <BorderCart>
-          <ShoppingCart size={20} weight="fill" color="white" />
+          <ShoppingCart
+            onClick={handleAddToCart}
+            size={20}
+            weight="fill"
+            color="white"
+          />
         </BorderCart>
       </PriceContainer>
     </CardContainer>

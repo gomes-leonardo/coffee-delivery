@@ -8,8 +8,10 @@ import {
 } from './styles'
 import logo from '../../assets/Logo.png'
 import { ShoppingCart, MapPin } from 'phosphor-react'
+import { useCart } from '../../context/CartContext'
 const Header = () => {
-  const itemCount = 5
+  const { selectedCoffees } = useCart()
+
   return (
     <HeaderContainer>
       <NavLink to="/" title="Home">
@@ -26,7 +28,9 @@ const Header = () => {
           title="Carrinho"
         >
           <Cart>
-            {itemCount > 0 && <CartItemCount>{itemCount}</CartItemCount>}
+            {selectedCoffees.length > 0 && (
+              <CartItemCount>{selectedCoffees.length}</CartItemCount>
+            )}
             <ShoppingCart size={24} weight="fill" />
           </Cart>
         </NavLink>

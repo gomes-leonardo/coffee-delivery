@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const CardContainer = styled.div`
   background-color: ${(props) => props.theme.colors['base-card']};
   padding: 1rem;
-  border-radius: 6px;
+  border-radius: 38px 0 38px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
