@@ -18,6 +18,7 @@ import {
   InputRadio,
   MainContainer,
   StyledForm,
+  Test,
   Title,
   TitleSection,
   TotalContainer,
@@ -115,6 +116,11 @@ const Checkout = () => {
       : 'grid'
   }
 
+  const hasErrorMaxHeight = () => {
+    return errors.cep || errors.rua || errors.bairro || errors.cidade
+      ? 'initial'
+      : '450px'
+  }
   const handleIncrement = (coffee: Coffee) => {
     addToCart(coffee)
   }
@@ -259,17 +265,19 @@ const Checkout = () => {
               </InputContainer>
             </Container>
           </div>
-          <div>
+          <div style={{ width: '100%' }}>
             <Title>Cafés selecionados</Title>
-            <CoffeeContainer>
+            <CoffeeContainer style={{ width: '100%' }}>
               {selectedCoffees.length === 0 ? (
                 <div
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
+                    justifyContent: 'center',
                     gap: '1rem',
                     padding: '10px',
+                    margin: 'auto',
                   }}
                 >
                   <h3>Adicione nossos produtos no carrinho</h3>

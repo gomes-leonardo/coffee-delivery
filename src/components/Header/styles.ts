@@ -38,6 +38,7 @@ export const Cart = styled.div`
   color: ${(props) => props.theme.colors['yellow-dark']};
   font-size: 0.875rem;
   position: relative;
+  transition: all 0.3s ease-in-out;
 
   @media (min-width: 768px) {
     gap: 0.5rem;
@@ -45,6 +46,12 @@ export const Cart = styled.div`
 
   &.active {
     color: ${(props) => props.theme['yellow-dark']};
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors['yellow-normal']};
+    transition: all 0.3s ease-in-out;
+    color: white;
   }
 `
 

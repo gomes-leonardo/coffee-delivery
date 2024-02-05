@@ -1,4 +1,10 @@
-import React, { ReactNode, createContext, useContext, useState } from 'react'
+import React, {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { Coffee } from '../../components/CoffeeCard'
 
 interface CartContextType {
@@ -63,6 +69,23 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     setSelectedCoffees(updateCoffees)
   }
 
+  const CART_STORAGE_KEY = 'cartData'
+
+  useEffect(() => {
+    const cartData = localStorage.getItem(CART_STORAGE_KEY)
+    if (cartData) {
+      const parsedCartData = JSON.parse(cartData)
+      setSelectedCoffees(parsedCartData.selectedCoffees)
+      setItemCount(parsedCartData.itemCount)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem(
+      CART_STORAGE_KEY,
+      JSON.stringify({ selectedCoffees, itemCount }),
+    )
+  }, [selectedCoffees, itemCount])
   return (
     <CartContext.Provider
       value={{

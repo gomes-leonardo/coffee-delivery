@@ -1,12 +1,18 @@
 import React from 'react'
-import { Plus, Minus, Trash } from 'phosphor-react'
-import { CounterContainer, MainContainer, Remove } from './style'
+import { Trash } from 'phosphor-react'
+import {
+  CounterContainer,
+  MainContainer,
+  Remove,
+  StyledMinus,
+  StyledPlus,
+} from './style'
 
 interface CounterProps {
   count: number
   onIncrement: () => void
   onDecrement: () => void
-  onRemoveAllCoffees: () => void
+  onRemoveAllCoffees?: () => void
   showRemoveButton?: boolean
 }
 
@@ -20,27 +26,13 @@ const Counter: React.FC<CounterProps> = ({
   return (
     <MainContainer>
       <CounterContainer>
-        <Minus
-          onClick={onDecrement}
-          color="#8047F8"
-          weight="fill"
-          cursor={'pointer'}
-        />
+        <StyledMinus onClick={onDecrement} weight="fill" cursor={'pointer'} />
         <span style={{ fontWeight: '600' }}>{count}</span>
-        <Plus
-          onClick={onIncrement}
-          color="#8047F8"
-          cursor={'pointer'}
-          weight="fill"
-        />
+        <StyledPlus onClick={onIncrement} cursor={'pointer'} weight="fill" />
       </CounterContainer>
       {showRemoveButton && (
         <CounterContainer>
-          <Trash
-            onClick={onRemoveAllCoffees}
-            color="#8047F8"
-            cursor={'pointer'}
-          />
+          <Trash onClick={onRemoveAllCoffees} cursor={'pointer'} />
           <Remove>REMOVER</Remove>
         </CounterContainer>
       )}

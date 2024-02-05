@@ -38,6 +38,11 @@ export const BorderCart = styled.div`
   font-size: 0.875rem;
   width: 2rem;
   height: 2rem;
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors['purple-normal']};
+    transition: all 0.2s ease-in-out;
+  }
 `
 
 export const Description = styled.p`

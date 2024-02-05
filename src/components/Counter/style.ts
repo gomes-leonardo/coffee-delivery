@@ -1,3 +1,4 @@
+import { Minus, Plus } from 'phosphor-react'
 import styled from 'styled-components'
 
 export const CounterContainer = styled.div`
@@ -27,5 +28,25 @@ export const MainContainer = styled.div`
   @media screen and (max-width: 768px) {
     width: 50%;
     flex-direction: column;
+  }
+`
+
+export const StyledMinus = styled(Minus)`
+  color: #8047f8;
+  cursor: pointer;
+
+  &:hover {
+    color: ${(props) => props.theme.colors['purple-dark']};
+    transition: all 0.2s;
+  }
+`
+
+export const StyledPlus = styled(Plus)`
+  color: #8047f8;
+  cursor: pointer;
+
+  &:hover {
+    color: ${(props) => props.theme.colors['purple-dark']};
+    transition: all 0.2s;
   }
 `

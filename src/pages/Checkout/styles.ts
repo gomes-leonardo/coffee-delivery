@@ -49,10 +49,6 @@ export const Container = styled.div`
     box-shadow: 0 0 0 2px ${(props) => props.theme.colors['purple-normal']};
   }
 
-  @media screen and (max-width: 768px) {
-    width: 100%;
-  }
-
   p {
     font-size: 15px;
     color: ${(props) => props.theme.colors['base-text']};
@@ -62,6 +58,12 @@ export const Container = styled.div`
     padding: 1.5rem;
     width: 100%;
     margin: auto;
+  }
+  @media screen and (max-width: 1024px) {
+    padding: 1.5rem;
+    width: 100%;
+    margin: auto;
+    order: 1;
   }
 `
 export const StyledForm = styled.form`
@@ -232,8 +234,11 @@ export const CoffeeContainer = styled.div`
     color: ${(props) => props.theme.colors['base-text']};
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1024) {
+    width: 100%;
     padding: 1.5rem;
+    margin: auto;
+    order: 3;
   }
 `
 
@@ -242,13 +247,23 @@ export const MainContainer = styled.div`
   flex-direction: row;
   gap: 2rem;
   padding-top: 10px;
-  max-height: 450px;
 
   @media screen and (max-width: 768px) {
     padding: 1.5rem;
     margin: auto;
     flex-direction: column;
-    max-height: 1000px;
+    max-height: 100%;
+  }
+  @media screen and (max-width: 1024px) {
+    padding: 1.5rem;
+    margin: auto;
+
+    width: 100%;
+    max-height: 100%;
+    order: 2;
+
+    align-items: center;
+    justify-content: center;
   }
 `
 
@@ -311,5 +326,11 @@ export const TotalContainer = styled.div`
     font-weight: bold;
     cursor: pointer;
     text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: ${(props) => props.theme.colors['yellow-dark']};
+      transition: all 0.2s ease-in-out;
+    }
   }
 `
